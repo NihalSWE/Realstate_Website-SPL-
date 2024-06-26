@@ -3,8 +3,13 @@ from django.contrib import messages
 from .models import ContactSubmission, ContactImage,PropertyHeaderImage,Property
 
 def home(request):
+    properties = Property.objects.all()
+    context = {
+        'properties': properties,
+        
+    }
     # Your home view logic here
-    return render(request, 'properties/home.html')
+    return render(request, 'properties/home.html', context)
 
 def about(request):
     # Your about view logic here
