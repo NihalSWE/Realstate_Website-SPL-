@@ -2,8 +2,10 @@ from django.shortcuts import render
 
 # Create your views here.
 
-def index(request):
-    return render(request, 'properties/index.html')
+def base(request):
+    return render(request, 'properties/base.html')
+def home(request):
+    return render(request, 'properties/home.html')
 def about(request):
     return render(request, 'properties/about.html')
 def property(request):
