@@ -24,6 +24,10 @@ def property(request):
     }
     return render(request, 'properties/property-list.html', context)
 
+
+def propertyAgent(request):
+    return render(request,'properties/property-agent.html')
+
 def contact(request):
     latest_image = ContactImage.objects.last()  # Fetch the latest uploaded image
 

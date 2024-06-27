@@ -56,7 +56,14 @@
                 <div class="navbar-nav ms-auto">
                     <a href="{% url 'home' %}" class="nav-item nav-link active">Home</a>
                     <a href="{% url 'about' %}" class="nav-item nav-link">About</a>
-                    <a href="{% url 'property' %}" class="nav-item nav-link active">Property</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Property</a>
+                        <div class="dropdown-menu rounded-0 m-0">
+                            <a href="{% url 'property' %}" class="dropdown-item">Property List</a>
+                            
+                            <a href="{% url 'propertyAgent' %}" class="dropdown-item">Property Agent</a>
+                        </div>
+                    </div>
                     <a href="{% url 'contact' %}" class="nav-item nav-link">Contact</a>
                 </div>
                 
