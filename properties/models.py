@@ -1,17 +1,6 @@
 from django.db import models
 
 
-
-
-
-
-
-
-
-
-
-
-
 class ContactSubmission(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField()
@@ -81,3 +70,31 @@ class PropertyAgent_CallToAction(models.Model):
 
     def __str__(self):
         return self.title
+    
+
+
+class AboutUs_HeaderImage(models.Model):
+    image = models.ImageField(upload_to='header_images')
+
+    def __str__(self):
+         return f"AboutUs_HeaderImage {self.id}"
+
+class AboutUs_CallToAction(models.Model):
+    image = models.ImageField(upload_to='cta_images')
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+
+    def __str__(self):
+        return self.title
+
+class AboutUs_TeamMember(models.Model):
+    name = models.CharField(max_length=255)
+    designation = models.CharField(max_length=255)
+    number = models.CharField(max_length=20, blank=True, null=True)
+    image = models.ImageField(upload_to='team_images')
+    facebook_url = models.URLField(blank=True, null=True)
+    twitter_url = models.URLField(blank=True, null=True)
+    instagram_url = models.URLField(blank=True, null=True)
+
+    def __str__(self):
+        return self.name

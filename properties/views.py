@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import ContactSubmission, ContactImage,PropertyHeaderImage,Property,PropertyAgent_HeaderImage, PropertyAgent_TeamMember, PropertyAgent_CallToAction
+from .models import ContactSubmission, ContactImage,PropertyHeaderImage,Property,PropertyAgent_HeaderImage, PropertyAgent_TeamMember, PropertyAgent_CallToAction,AboutUs_HeaderImage, AboutUs_CallToAction, AboutUs_TeamMember
 
 def home(request):
     properties = Property.objects.all()
@@ -12,8 +12,16 @@ def home(request):
     return render(request, 'properties/home.html', context)
 
 def about(request):
-    # Your about view logic here
-    return render(request, 'properties/about.html')
+    header_image = AboutUs_HeaderImage.objects.first()
+    cta = AboutUs_CallToAction.objects.first()
+    team_members = AboutUs_TeamMember.objects.all()
+
+    context = {
+        'header_image': header_image,
+        'cta': cta,
+        'team_members': team_members,
+    }
+    return render(request, 'properties/about.html',context)
 
 def property(request):
     properties = Property.objects.all()
