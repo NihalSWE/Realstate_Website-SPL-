@@ -1,5 +1,17 @@
 from django.db import models
 
+
+
+
+
+
+
+
+
+
+
+
+
 class ContactSubmission(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField()
@@ -39,6 +51,33 @@ class Property(models.Model):
     size_sqft = models.IntegerField()
     bedrooms = models.IntegerField()
     bathrooms = models.IntegerField()
+
+    def __str__(self):
+        return self.title
+
+
+class PropertyAgent_HeaderImage(models.Model):
+    image = models.ImageField(upload_to='header_images', null=True, blank=True)
+
+    def __str__(self):
+        return f"P_A_HeaderImage {self.id}"
+
+class PropertyAgent_TeamMember(models.Model):
+    full_name = models.CharField(max_length=255)
+    designation = models.CharField(max_length=255)
+    number=models.CharField(max_length=20,null=True)
+    image = models.ImageField(upload_to='team_images')
+    facebook_url = models.URLField(blank=True, null=True)
+    twitter_url = models.URLField(blank=True, null=True)
+    instagram_url = models.URLField(blank=True, null=True)
+
+    def __str__(self):
+        return self.full_name
+
+class PropertyAgent_CallToAction(models.Model):
+    image = models.ImageField(upload_to='cta_images')
+    title = models.CharField(max_length=255)
+    description = models.TextField()
 
     def __str__(self):
         return self.title

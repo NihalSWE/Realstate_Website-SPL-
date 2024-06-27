@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import ContactSubmission, ContactImage,PropertyHeaderImage,Property
+from .models import ContactSubmission, ContactImage,PropertyHeaderImage,Property,PropertyAgent_HeaderImage, PropertyAgent_TeamMember, PropertyAgent_CallToAction
 
 @admin.register(ContactSubmission)
 class ContactSubmissionAdmin(admin.ModelAdmin):
@@ -22,3 +22,8 @@ class PropertyAdmin(admin.ModelAdmin):
     list_filter = ('property_type',)
     search_fields = ('title', 'location')
     ordering = ('-id',)
+
+
+admin.site.register(PropertyAgent_HeaderImage)
+admin.site.register(PropertyAgent_TeamMember)
+admin.site.register(PropertyAgent_CallToAction)

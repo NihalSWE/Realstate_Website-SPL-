@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import ContactSubmission, ContactImage,PropertyHeaderImage,Property
+from .models import ContactSubmission, ContactImage,PropertyHeaderImage,Property,PropertyAgent_HeaderImage, PropertyAgent_TeamMember, PropertyAgent_CallToAction
 
 def home(request):
     properties = Property.objects.all()
@@ -24,9 +24,18 @@ def property(request):
     }
     return render(request, 'properties/property-list.html', context)
 
-
 def propertyAgent(request):
-    return render(request,'properties/property-agent.html')
+    header_image = PropertyAgent_HeaderImage.objects.first()
+    team_members = PropertyAgent_TeamMember.objects.all()
+    cta = PropertyAgent_CallToAction.objects.first()
+
+    context = {
+        'header_image': header_image,
+        'team_members': team_members,
+        'cta': cta,
+    }
+    return render(request, 'properties/property-agent.html', context)
+
 
 def contact(request):
     latest_image = ContactImage.objects.last()  # Fetch the latest uploaded image
