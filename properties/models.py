@@ -1,6 +1,44 @@
 from django.db import models
 
 
+
+
+class Home_Header(models.Model):
+    title = models.CharField(max_length=255)
+    subtitle = models.TextField()
+    carousel_images = models.ManyToManyField('Home_HeaderImage')
+
+    def __str__(self):
+        return self.title
+
+class Home_HeaderImage(models.Model):
+    image = models.ImageField(upload_to='header_images')
+
+    def __str__(self):
+        return f"Home_HeaderImage {self.id}"
+
+class Home_CallToAction(models.Model):
+    image = models.ImageField(upload_to='cta_images')
+    title = models.CharField(max_length=255)
+    description = models.TextField(max_length=255)
+    
+
+    def __str__(self):
+        return self.title
+
+class Home_Testimonial(models.Model):
+    text = models.TextField(max_length=200)
+    author_name = models.CharField(max_length=255)
+    author_designation = models.CharField(max_length=255)
+    author_image = models.ImageField(upload_to='testimonial_images')
+
+    def __str__(self):
+        return self.author_name
+
+
+
+
+
 class ContactSubmission(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField()

@@ -1,11 +1,20 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import ContactSubmission, ContactImage,PropertyHeaderImage,Property,PropertyAgent_HeaderImage, PropertyAgent_TeamMember, PropertyAgent_CallToAction,AboutUs_HeaderImage, AboutUs_CallToAction, AboutUs_TeamMember
+from .models import ContactSubmission, ContactImage,PropertyHeaderImage,Property,PropertyAgent_HeaderImage, PropertyAgent_TeamMember, PropertyAgent_CallToAction,AboutUs_HeaderImage, AboutUs_CallToAction, AboutUs_TeamMember,Home_Header, Home_HeaderImage, Home_CallToAction, Home_Testimonial
+
 
 def home(request):
+    header = Home_Header.objects.first()
+    header_images = Home_HeaderImage.objects.all()  
     properties = Property.objects.all()
+    call_to_action = Home_CallToAction.objects.first()
+    testimonials = Home_Testimonial.objects.all()
     context = {
+        'header': header,
+        'header_images': header_images, 
         'properties': properties,
+        'call_to_action': call_to_action,
+        'testimonials': testimonials,
         
     }
     # Your home view logic here
@@ -31,6 +40,35 @@ def property(request):
         'header_image': header_image,
     }
     return render(request, 'properties/property-list.html', context)
+
+from django.db.models import Q
+
+def property_search_result(request):
+    keyword = request.GET.get('keyword')
+    property_type = request.GET.get('property_type')
+    location = request.GET.get('location')
+    
+    # Filter properties based on search criteria
+    properties = Property.objects.all()
+    
+    if keyword:
+        properties = properties.filter(title__icontains=keyword)
+    
+    if property_type:
+        properties = properties.filter(property_type=property_type)
+    
+    if location:
+        properties = properties.filter(location__icontains=location)
+    
+    context = {
+        'properties': properties,  # Pass filtered properties to the template
+        'keyword': keyword,
+        'property_type': property_type,
+        'location': location,
+    }
+    
+    return render(request, 'properties/property_search_results.html', context)
+
 
 def propertyAgent(request):
     header_image = PropertyAgent_HeaderImage.objects.first()

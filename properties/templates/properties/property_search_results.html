@@ -1,0 +1,35 @@
+{% extends "properties/base.html" %}
+{% block title %}
+Search Results
+{% endblock %}
+
+{% block body %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col">
+            <h1 class="mb-4">Search Results</h1>
+            <p>Showing results for:</p>
+            <ul class="list-unstyled">
+                {% if keyword %}
+                <li><strong>Keyword:</strong> {{ keyword }}</li>
+                {% endif %}
+                {% if property_type %}
+                <li><strong>Property Type:</strong> {{ PROPERTY_TYPES.property_type }}</li>
+                {% endif %}
+                {% if location %}
+                <li><strong>Location:</strong> {{ location }}</li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+    <div class="row mt-4">
+        {% if properties %}
+        {% for property in properties %}
+        <!-- Render each property as needed -->
+        {% endfor %}
+        {% else %}
+        <p>No properties found matching your search criteria.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

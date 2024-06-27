@@ -7,5 +7,8 @@ urlpatterns = [
     path('about/', views.about, name="about"),
     path('contact/', views.contact, name="contact"),  # Updated path with trailing slash
     path('property/', views.property, name="property"),  # Updated path with trailing slash
-    path('propertyAgent/',views.propertyAgent,name="propertyAgent",)
+    path('propertyAgent/',views.propertyAgent,name="propertyAgent"),
+    path('property_search_result/', views.property_search_result, name="property_search_result"),  # Ensure correct URL mapping
+    
+    
 ]
