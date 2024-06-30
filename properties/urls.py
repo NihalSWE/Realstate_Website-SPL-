@@ -9,6 +9,6 @@ urlpatterns = [
     path('property/', views.property, name="property"),  # Updated path with trailing slash
     path('propertyAgent/',views.propertyAgent,name="propertyAgent"),
     # path('property/', views.property_list, name='property_list'),
-    
+    path('property/<int:pk>/', views.property_detail, name='property_detail'),
     
 ]

@@ -59,6 +59,13 @@ def property(request):
     }
     return render(request, 'properties/property-list.html', context)
 
+from django.shortcuts import render, get_object_or_404
+def property_detail(request, pk):
+    property = get_object_or_404(Property, pk=pk)
+    context = {
+        'property': property
+    }
+    return render(request, 'properties/property_detail.html', context)
 
 
 # # for seracarh-bar

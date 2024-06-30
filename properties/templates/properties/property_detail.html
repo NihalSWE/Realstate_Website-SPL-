@@ -1,0 +1,25 @@
+{% extends "properties/base.html" %}
+
+{% block title %}
+Property Detail - {{ property.title }}
+{% endblock %}
+
+{% block body %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-6">
+            <img class="img-fluid rounded shadow-sm mb-4" src="{{ property.image.url }}" alt="{{ property.title }}">
+        </div>
+        <div class="col-md-6">
+            <h2 class="mb-4">{{ property.title }}</h2>
+            <p class="mb-3"><strong>Price:</strong> Tk.{{ property.price }}</p>
+            <p class="mb-3"><strong>Location:</strong> {{ property.location }}</p>
+            <p class="mb-3"><strong>Size:</strong> {{ property.size_sqft }} Sqft</p>
+            <p class="mb-3"><strong>Bedrooms:</strong> {{ property.bedrooms }}</p>
+            <p class="mb-3"><strong>Bathrooms:</strong> {{ property.bathrooms }}</p>
+            <p class="mb-4">{{ property.description }}</p>
+            <a href="{% url 'propertyAgent' %}" class="btn btn-primary">Contact Agent</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
