@@ -14,7 +14,7 @@ Search Results
                 <li><strong>Keyword:</strong> {{ keyword }}</li>
                 {% endif %}
                 {% if property_type %}
-                <li><strong>Property Type:</strong> {{ PROPERTY_TYPES.property_type }}</li>
+                <li><strong>Property Type:</strong> {{ PROPERTY_TYPES[property_type] }}</li>
                 {% endif %}
                 {% if location %}
                 <li><strong>Location:</strong> {{ location }}</li>
@@ -25,7 +25,18 @@ Search Results
     <div class="row mt-4">
         {% if properties %}
         {% for property in properties %}
-        <!-- Render each property as needed -->
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <img src="{{ property.image.url }}" class="card-img-top" alt="{{ property.title }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ property.title }}</h5>
+                    <p class="card-text">{{ property.location }}</p>
+                    <p class="card-text">{{ property.property_type }}</p>
+                    <p class="card-text">{{ property.price }}</p>
+                    <a href="{% url 'property_detail' property.id %}" class="btn btn-primary">View Details</a>
+                </div>
+            </div>
+        </div>
         {% endfor %}
         {% else %}
         <p>No properties found matching your search criteria.</p>

@@ -5,20 +5,32 @@ from .models import ContactSubmission, ContactImage,PropertyHeaderImage,Property
 
 def home(request):
     header = Home_Header.objects.first()
-    header_images = Home_HeaderImage.objects.all()  
+    header_images = Home_HeaderImage.objects.all()
     properties = Property.objects.all()
     call_to_action = Home_CallToAction.objects.first()
     testimonials = Home_Testimonial.objects.all()
+
+    for_sell_properties = properties.filter(property_type='sell')[:6]
+    additional_sell_properties = properties.filter(property_type='sell')[6:]
+    sold_properties = properties.filter(property_type='sold')[:6]
+
     context = {
         'header': header,
-        'header_images': header_images, 
-        'properties': properties,
+        'header_images': header_images,
+        'for_sell_properties': for_sell_properties,
+        'additional_sell_properties': additional_sell_properties,
+        'sold_properties': sold_properties,
         'call_to_action': call_to_action,
         'testimonials': testimonials,
-        
     }
-    # Your home view logic here
     return render(request, 'properties/home.html', context)
+
+
+
+
+
+
+
 
 def about(request):
     header_image = AboutUs_HeaderImage.objects.first()
@@ -35,40 +47,52 @@ def about(request):
 def property(request):
     properties = Property.objects.all()
     header_image = PropertyHeaderImage.objects.first()  # Assuming you have only one header image
+    for_sell_properties = properties.filter(property_type='sell')[:6]
+    additional_sell_properties = properties.filter(property_type='sell')[6:]
+    sold_properties = properties.filter(property_type='sold')[:6]
     context = {
         'properties': properties,
         'header_image': header_image,
+        'for_sell_properties': for_sell_properties,
+        'additional_sell_properties': additional_sell_properties,
+        'sold_properties': sold_properties,
     }
     return render(request, 'properties/property-list.html', context)
 
-from django.db.models import Q
 
-def property_search_result(request):
-    keyword = request.GET.get('keyword')
-    property_type = request.GET.get('property_type')
-    location = request.GET.get('location')
-    
-    # Filter properties based on search criteria
-    properties = Property.objects.all()
-    
-    if keyword:
-        properties = properties.filter(title__icontains=keyword)
-    
-    if property_type:
-        properties = properties.filter(property_type=property_type)
-    
-    if location:
-        properties = properties.filter(location__icontains=location)
-    
-    context = {
-        'properties': properties,  # Pass filtered properties to the template
-        'keyword': keyword,
-        'property_type': property_type,
-        'location': location,
-    }
-    
-    return render(request, 'properties/property_search_results.html', context)
 
+# # for seracarh-bar
+# -------------------
+
+# def property_list(request):
+#     properties = Property.objects.all()
+    
+#     keyword = request.GET.get('keyword', '').strip()
+#     property_type = request.GET.get('property_type', '').strip()
+#     location = request.GET.get('location', '').strip()
+    
+#     print(f"Initial QuerySet: {properties}")  # Debug: Initial QuerySet
+
+#     if keyword:
+#         properties = properties.filter(title__icontains=keyword)
+#         print(f"Filtered by keyword '{keyword}': {properties}")  # Debug: After keyword filter
+    
+#     if property_type:
+#         properties = properties.filter(property_type=property_type)
+#         print(f"Filtered by property_type '{property_type}': {properties}")  # Debug: After property_type filter
+    
+#     if location:
+#         properties = properties.filter(location__icontains=location)
+#         print(f"Filtered by location '{location}': {properties}")  # Debug: After location filter
+    
+#     context = {
+#         'properties': properties,
+#         'keyword': keyword,
+#         'property_type': property_type,
+#         'location': location,
+#     }
+#     print(f"Context: {context}")  # Debug: Final context before rendering
+#     return render(request, 'properties/property-list.html', context)
 
 def propertyAgent(request):
     header_image = PropertyAgent_HeaderImage.objects.first()
