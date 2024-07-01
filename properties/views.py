@@ -14,6 +14,42 @@ def home(request):
     additional_sell_properties = properties.filter(property_type='sell')[6:]
     sold_properties = properties.filter(property_type='sold')[:6]
 
+    # Get all unique locations
+    unique_location_dicts = Property.objects.values('location').distinct()
+    unique_locations = [loc['location'] for loc in unique_location_dicts]
+    # print('unique_locations: ', unique_locations)
+
+    # Get search parameters
+    title = request.GET.get('title', '')
+    property_type = request.GET.get('property_type', '')
+    location = request.GET.get('location', '')
+
+    # # Debugging output
+    # print('Title: ', title)
+    # print('Property Type: ', property_type)
+    # print('Location: ', location)
+
+# Filter properties based on search parameters
+    try:
+        if title or property_type or location:
+            search_input = True
+        else:
+            search_input = False
+
+        if title:
+            properties = properties.filter(title__icontains=title)
+        if property_type:
+            properties = properties.filter(property_type=property_type)
+        if location:
+            properties = properties.filter(location__icontains=location)
+            
+    except Exception as e:
+        print(f"Error while filtering properties: {e}")
+
+    for_sell_properties = properties.filter(property_type='sell')[:6]
+    additional_sell_properties = properties.filter(property_type='sell')[6:]
+    sold_properties = properties.filter(property_type='sold')[:6]
+
     context = {
         'header': header,
         'header_images': header_images,
@@ -22,6 +58,11 @@ def home(request):
         'sold_properties': sold_properties,
         'call_to_action': call_to_action,
         'testimonials': testimonials,
+        'unique_locations': unique_locations,
+        'search_input': search_input,
+        'search_title': title,
+        'search_property_type': property_type,
+        'search_location': location,
     }
     return render(request, 'properties/home.html', context)
 
