@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 
 
@@ -136,3 +137,23 @@ class AboutUs_TeamMember(models.Model):
 
     def __str__(self):
         return self.name
+
+
+
+class CareerApplication(models.Model):
+    name = models.CharField(max_length=255)
+    email = models.EmailField(max_length=50)
+    number = models.CharField(max_length=15)
+    address = models.CharField(max_length=255)
+    message = models.TextField()
+    cv = models.FileField(upload_to='cvs/')
+    submitted_at = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.name
+    
+class Career_HeaderImage(models.Model):
+    image = models.ImageField(upload_to='header_images/')
+
+    def __str__(self):
+        return f"Career_HeaderImage {self.id}"

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import ContactSubmission, ContactImage,PropertyHeaderImage,Property,PropertyAgent_HeaderImage, PropertyAgent_TeamMember, PropertyAgent_CallToAction,AboutUs_HeaderImage, AboutUs_CallToAction, AboutUs_TeamMember,Home_Header, Home_HeaderImage, Home_CallToAction, Home_Testimonial
+from .models import ContactSubmission, ContactImage,PropertyHeaderImage,Property,PropertyAgent_HeaderImage, PropertyAgent_TeamMember, PropertyAgent_CallToAction,AboutUs_HeaderImage, AboutUs_CallToAction, AboutUs_TeamMember,Home_Header, Home_HeaderImage, Home_CallToAction, Home_Testimonial,CareerApplication,Career_HeaderImage
 
 
 
@@ -87,3 +87,16 @@ class AboutUs_CallToActionAdmin(admin.ModelAdmin):
 @admin.register(AboutUs_TeamMember)
 class AboutUs_TeamMemberAdmin(admin.ModelAdmin):
     list_display = ('name', 'designation', 'number', 'image')
+
+
+
+
+@admin.register(Career_HeaderImage)
+class Career_HeaderImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'image')
+    search_fields = ('id',)
+
+@admin.register(CareerApplication)
+class CareerApplicationAdmin(admin.ModelAdmin):
+    list_display = ('name', 'email', 'number', 'address', 'message','cv','submitted_at',)
+    search_fields = ('name', 'number', 'address',)
