@@ -126,14 +126,27 @@ def property(request):
     for_sell_properties = properties.filter(property_type='sell')[:6]
     additional_sell_properties = properties.filter(property_type='sell')[6:]
     sold_properties = properties.filter(property_type='sold')[:6]
+    additional_sold_properties = properties.filter(property_type='sold')[6:]
+    upcoming_properties = properties.filter(property_type='upcoming')[:6]
+    additional_upcoming_properties = properties.filter(property_type='upcoming')[6:]
+    completed_properties = properties.filter(property_type='completed')[:6]
+    additional_completed_properties = properties.filter(property_type='completed')[6:]
+    
     context = {
         'properties': properties,
         'header_image': header_image,
         'for_sell_properties': for_sell_properties,
         'additional_sell_properties': additional_sell_properties,
         'sold_properties': sold_properties,
+        'additional_sold_properties': additional_sold_properties,
+        'upcoming_properties': upcoming_properties,
+        'additional_upcoming_properties': additional_upcoming_properties,
+        'completed_properties': completed_properties,
+        'additional_completed_properties': additional_completed_properties,
     }
     return render(request, 'properties/property-list.html', context)
+
+
 
 from django.shortcuts import render, get_object_or_404
 def property_detail(request, pk):
