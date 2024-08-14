@@ -24,11 +24,6 @@ def home(request):
     property_type = request.GET.get('property_type', '')
     location = request.GET.get('location', '')
 
-    # # Debugging output
-    # print('Title: ', title)
-    # print('Property Type: ', property_type)
-    # print('Location: ', location)
-
 # Filter properties based on search parameters
     try:
         if title or property_type or location:
@@ -65,6 +60,72 @@ def home(request):
         'search_location': location,
     }
     return render(request, 'properties/home.html', context)
+
+# def home(request):
+#     header = Home_Header.objects.first()
+#     header_images = Home_HeaderImage.objects.all()
+#     call_to_action = Home_CallToAction.objects.first()
+#     testimonials = Home_Testimonial.objects.all()
+
+#     # Get all unique locations
+#     unique_location_dicts = Property.objects.values('location').distinct()
+#     unique_locations = [loc['location'] for loc in unique_location_dicts]
+
+#     # Get search parameters
+#     title = request.GET.get('title', '')
+#     property_type = request.GET.get('property_type', '')
+#     location = request.GET.get('location', '')
+
+#     print(f"Search Parameters - Title: {title}, Property Type: {property_type}, Location: {location}")
+
+#     # Initialize base queryset
+#     properties = Property.objects.all()
+
+#     # Apply search filters
+#     if title:
+#         properties = properties.filter(title__icontains=title)
+
+#     if property_type:
+#         properties = properties.filter(property_type=property_type)
+
+#     if location:
+#         properties = properties.filter(location__icontains=location)
+
+#     # Separate properties into categories
+#     for_sell_properties = properties.filter(property_type='sell')[:6]
+#     additional_sell_properties = properties.filter(property_type='sell')[6:]
+#     sold_properties = properties.filter(property_type='sold')[:6]
+#     additional_sold_properties = properties.filter(property_type='sold')[6:]
+#     upcoming_properties = properties.filter(property_type='upcoming')[:6]
+#     additional_upcoming_properties = properties.filter(property_type='upcoming')[6:]
+#     completed_properties = properties.filter(property_type='completed')[:6]
+#     additional_completed_properties = properties.filter(property_type='completed')[6:]
+
+#     print(f"for_sell_properties: {for_sell_properties}")
+#     print(f"sold_properties: {sold_properties}")
+#     print(f"upcoming_properties: {upcoming_properties}")
+#     print(f"completed_properties: {completed_properties}")
+
+#     context = {
+#         'header': header,
+#         'header_images': header_images,
+#         'for_sell_properties': for_sell_properties,
+#         'additional_sell_properties': additional_sell_properties,
+#         'sold_properties': sold_properties,
+#         'additional_sold_properties': additional_sold_properties,
+#         'upcoming_properties': upcoming_properties,
+#         'additional_upcoming_properties': additional_upcoming_properties,
+#         'completed_properties': completed_properties,
+#         'additional_completed_properties': additional_completed_properties,
+#         'call_to_action': call_to_action,
+#         'testimonials': testimonials,
+#         'unique_locations': unique_locations,
+#     }
+
+#     print(f"Context: {context}")
+
+#     return render(request, 'properties/home.html', context)
+
 
 
 
