@@ -181,6 +181,118 @@ def about(request):
     }
     return render(request, 'properties/about.html',context)
 
+def primary_p(request):
+    header_image = PropertyHeaderImage.objects.first()  # Assuming you have only one header image
+    p_properties=Property.objects.filter(category='P').order_by('id')
+    for_sell_properties = p_properties.filter(property_type='sell')[:6]
+    additional_sell_properties = p_properties.filter(property_type='sell')[6:]
+    sold_properties = p_properties.filter(property_type='sold')[:6]
+    additional_sold_properties = p_properties.filter(property_type='sold')[6:]
+    upcoming_properties = p_properties.filter(property_type='upcoming')[:6]
+    additional_upcoming_properties = p_properties.filter(property_type='upcoming')[6:]
+    completed_properties = p_properties.filter(property_type='completed')[:6]
+    additional_completed_properties = p_properties.filter(property_type='completed')[6:]
+    context = {
+        'p_properties': p_properties,
+        'header_image': header_image,
+        'for_sell_properties': for_sell_properties,
+        'additional_sell_properties': additional_sell_properties,
+        'sold_properties': sold_properties,
+        'additional_sold_properties': additional_sold_properties,
+        'upcoming_properties': upcoming_properties,
+        'additional_upcoming_properties': additional_upcoming_properties,
+        'completed_properties': completed_properties,
+        'additional_completed_properties': additional_completed_properties,
+        }
+    return render(request, 'properties/Primary_project.html',context)
+
+
+
+
+def secondary_p(request):
+    header_image = PropertyHeaderImage.objects.first()  # Assuming you have only one header image
+    s_properties=Property.objects.filter(category='S').order_by('id')
+    for_sell_properties = s_properties.filter(property_type='sell')[:6]
+    additional_sell_properties = s_properties.filter(property_type='sell')[6:]
+    sold_properties = s_properties.filter(property_type='sold')[:6]
+    additional_sold_properties = s_properties.filter(property_type='sold')[6:]
+    upcoming_properties = s_properties.filter(property_type='upcoming')[:6]
+    additional_upcoming_properties = s_properties.filter(property_type='upcoming')[6:]
+    completed_properties = s_properties.filter(property_type='completed')[:6]
+    additional_completed_properties = s_properties.filter(property_type='completed')[6:]
+    context = {
+        's_properties': s_properties,
+        'header_image': header_image,
+        'for_sell_properties': for_sell_properties,
+        'additional_sell_properties': additional_sell_properties,
+        'sold_properties': sold_properties,
+        'additional_sold_properties': additional_sold_properties,
+        'upcoming_properties': upcoming_properties,
+        'additional_upcoming_properties': additional_upcoming_properties,
+        'completed_properties': completed_properties,
+        'additional_completed_properties': additional_completed_properties,
+        }
+    return render(request, 'properties/Secondary_project.html',context)
+
+
+def land_p(request):
+    header_image = PropertyHeaderImage.objects.first()  # Assuming you have only one header image
+    l_properties=Property.objects.filter(category='L').order_by('id')
+    for_sell_properties = l_properties.filter(property_type='sell')[:6]
+    additional_sell_properties = l_properties.filter(property_type='sell')[6:]
+    sold_properties = l_properties.filter(property_type='sold')[:6]
+    additional_sold_properties = l_properties.filter(property_type='sold')[6:]
+    upcoming_properties = l_properties.filter(property_type='upcoming')[:6]
+    additional_upcoming_properties = l_properties.filter(property_type='upcoming')[6:]
+    completed_properties = l_properties.filter(property_type='completed')[:6]
+    additional_completed_properties = l_properties.filter(property_type='completed')[6:]
+    context = {
+        'l_properties': l_properties,
+        'header_image': header_image,
+        'for_sell_properties': for_sell_properties,
+        'additional_sell_properties': additional_sell_properties,
+        'sold_properties': sold_properties,
+        'additional_sold_properties': additional_sold_properties,
+        'upcoming_properties': upcoming_properties,
+        'additional_upcoming_properties': additional_upcoming_properties,
+        'completed_properties': completed_properties,
+        'additional_completed_properties': additional_completed_properties,
+        }
+    return render(request, 'properties/Land_shearing.html',context)
+
+
+def join_p(request):
+    header_image = PropertyHeaderImage.objects.first()  # Assuming you have only one header image
+    j_properties=Property.objects.filter(category='J').order_by('id')
+    for_sell_properties = j_properties.filter(property_type='sell')[:6]
+    additional_sell_properties = j_properties.filter(property_type='sell')[6:]
+    sold_properties = j_properties.filter(property_type='sold')[:6]
+    additional_sold_properties = j_properties.filter(property_type='sold')[6:]
+    upcoming_properties = j_properties.filter(property_type='upcoming')[:6]
+    additional_upcoming_properties = j_properties.filter(property_type='upcoming')[6:]
+    completed_properties = j_properties.filter(property_type='completed')[:6]
+    additional_completed_properties = j_properties.filter(property_type='completed')[6:]
+    context = {
+        'j_properties': j_properties,
+        'header_image': header_image,
+        'for_sell_properties': for_sell_properties,
+        'additional_sell_properties': additional_sell_properties,
+        'sold_properties': sold_properties,
+        'additional_sold_properties': additional_sold_properties,
+        'upcoming_properties': upcoming_properties,
+        'additional_upcoming_properties': additional_upcoming_properties,
+        'completed_properties': completed_properties,
+        'additional_completed_properties': additional_completed_properties,
+        }
+    return render(request, 'properties/join_venture.html',context)
+
+
+
+
+
+
+
+
 def property(request):
     properties = Property.objects.all()
     header_image = PropertyHeaderImage.objects.first()  # Assuming you have only one header image

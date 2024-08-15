@@ -65,7 +65,15 @@ class PropertyHeaderImage(models.Model):
     def __str__(self):
         return f"HeaderImage {self.id}"
     
+
+CATEGORY_CHOICES=(
+    ('P','Primary Project'),
+    ('S','Secondary Project'),
+    ('L','Land Shearing'),
+    ('J','Joint Venture'),
+)
 class Property(models.Model):
+    
     PROPERTY_TYPES = [
         ('sell', 'For Sell'),
         ('sold', 'Sold'),
@@ -74,13 +82,14 @@ class Property(models.Model):
     ]
     
     title = models.CharField(max_length=100)
+    category = models.CharField(choices=CATEGORY_CHOICES, default='J', max_length=2)
     property_type = models.CharField(max_length=10, choices=PROPERTY_TYPES, default='sell')
-    price = models.DecimalField(max_digits=10, decimal_places=2)
     location = models.CharField(max_length=255)
-    image = models.ImageField(upload_to='property_images/')
+    image = models.ImageField(upload_to='property_images/',default="No Image Set")
     size_sqft = models.IntegerField()
     bedrooms = models.IntegerField()
     bathrooms = models.IntegerField()
+    belcony = models.IntegerField(default=0)
 
     def __str__(self):
         return self.title

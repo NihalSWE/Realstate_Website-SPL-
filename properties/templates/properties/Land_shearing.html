@@ -1,6 +1,6 @@
 {% extends "properties/base.html" %}
 {% block title %}
-Property List
+Property List | Land Shearing
 {% endblock %}
 
 {% block body %}
@@ -71,7 +71,7 @@ Property List
         <div class="row g-0 gx-5 align-items-end">
             <div class="col-lg-6">
                 <div class="text-start mx-auto mb-5 wow slideInLeft" data-wow-delay="0.1s">
-                    <h1 class="mb3">Property Listing</h1>
+                    <h1 class="mb3">Land Shearing Property Listing</h1>
                     <p>Eirmod sed ipsum dolor sit rebum labore magna erat. Tempor ut dolore lorem kasd vero ipsum sit eirmod sit diam justo sed rebum.</p>
                 </div>
             </div>
@@ -116,6 +116,7 @@ Property List
                                 <small class="flex-fill text-center border-end py-2"><i class="fa fa-ruler-combined text-primary me-2"></i>{{ property.size_sqft }} Sqft</small>
                                 <small class="flex-fill text-center border-end py-2"><i class="fa fa-bed text-primary me-2"></i>{{ property.bedrooms }} Bed</small>
                                 <small class="flex-fill text-center py-2"><i class="fa fa-bath text-primary me-2"></i>{{ property.bathrooms }} Bath</small>
+                                <small class="flex-fill text-center py-2"><i class="fa fa-bath text-primary me-2"></i>{{ property.belcony }} Belcony</small>
                             </div>
                         </div>
                     </div>
@@ -344,6 +345,8 @@ Property List
     </div>
 </div>
 <!-- Property List End -->
+
+
 
 <script>
     document.addEventListener('DOMContentLoaded', (event) => {

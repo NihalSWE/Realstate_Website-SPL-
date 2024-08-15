@@ -59,13 +59,13 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Our Services</a>
                         <div class="dropdown-menu rounded-0 m-0">
-                            <a href="{% url 'property' %}" class="dropdown-item">Property List</a>
+                            {% comment %} <a href="{% url 'property' %}" class="dropdown-item">Property List</a>
                             
-                            <a href="{% url 'propertyAgent' %}" class="dropdown-item">Property Agent</a>
-                            <a href="#" class="dropdown-item">primary</a>
-                            <a href="#" class="dropdown-item">Secondary</a>
-                            <a href="#" class="dropdown-item">Land Shearing</a>
-                            <a href="#" class="dropdown-item">Joint Venture</a>
+                            <a href="{% url 'propertyAgent' %}" class="dropdown-item">Property Agent</a> {% endcomment %}
+                            <a href="{% url 'primary_p' %}" class="dropdown-item">Primary Project</a>
+                            <a href="{% url 'secondary_p' %}" class="dropdown-item">Secondary Project</a>
+                            <a href="{% url 'land_p' %}" class="dropdown-item">Land Shearing</a>
+                            <a href="{% url 'join_p' %}" class="dropdown-item">Joint Venture</a>
                         </div>
                     </div>
                     <a href="{% url 'contact' %}" class="nav-item nav-link">Contact</a>
@@ -73,10 +73,152 @@
                 </div>
                 
             </div>
+
+ <!-- Social Media Icons -->
+ <div class="nav-item d-flex align-items-center">
+    <ul class="social-icons">
+        <li>
+            <a class="facebook" href="https://www.facebook.com/SmarttechProperties" target="_blank" title="Facebook">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <i class="fab fa-facebook-f"></i>
+            </a>
+        </li>
+        <li>
+            <a class="youtube" href="https://www.youtube.com/yourchannel" target="_blank" title="YouTube">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <i class="fab fa-youtube"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+<!--Social icon end-->
+
         </nav>
     </div>
     <!-- Navbar End -->
-
+<style>
+    :root {
+        --facebook-color: #3b5998;
+        --youtube-color: #ff0000;
+        --icon-color: #404040;
+    }
+    
+    .nav-item .social-icons {
+        position: relative;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        list-style: none;
+    }
+    
+    .nav-item .social-icons li {
+        margin: 0 10px; /* Reduced margin */
+    }
+    
+    .nav-item .social-icons li a {
+        display: block;
+        position: relative;
+        width: 35px; /* Reduced width */
+        height: 35px; /* Reduced height */
+        line-height: 35px; /* Aligns icon vertically */
+        font-size: 20px; /* Reduced icon font size */
+        text-align: center;
+        text-decoration: none;
+        color: var(--icon-color);
+        transition: 0.5s;
+    }
+    
+    .nav-item .social-icons li a span {
+        position: absolute;
+        transition: transform 0.5s;
+    }
+    
+    .nav-item .social-icons li a span:nth-child(1),
+    .nav-item .social-icons li a span:nth-child(3) {
+        width: 100%;
+        height: 2px; /* Reduced thickness */
+        background: var(--icon-color);
+    }
+    
+    .nav-item .social-icons li a span:nth-child(1) {
+        top: 0;
+        left: 0;
+        transform-origin: right;
+    }
+    
+    .nav-item .social-icons li a:hover span:nth-child(1) {
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.5s;
+    }
+    
+    .nav-item .social-icons li a span:nth-child(3) {
+        bottom: 0;
+        left: 0;
+        transform-origin: left;
+    }
+    
+    .nav-item .social-icons li a:hover span:nth-child(3) {
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform 0.5s;
+    }
+    
+    .nav-item .social-icons li a span:nth-child(2),
+    .nav-item .social-icons li a span:nth-child(4) {
+        width: 2px; /* Reduced thickness */
+        height: 100%;
+        background: var(--icon-color);
+    }
+    
+    .nav-item .social-icons li a span:nth-child(2) {
+        top: 0;
+        left: 0;
+        transform: scale(0);
+        transform-origin: bottom;
+    }
+    
+    .nav-item .social-icons li a:hover span:nth-child(2) {
+        transform: scale(1);
+        transform-origin: top;
+        transition: transform 0.5s;
+    }
+    
+    .nav-item .social-icons li a span:nth-child(4) {
+        top: 0;
+        right: 0;
+        transform: scale(0);
+        transform-origin: top;
+    }
+    
+    .nav-item .social-icons li a:hover span:nth-child(4) {
+        transform: scale(1);
+        transform-origin: bottom;
+        transition: transform 0.5s;
+    }
+    
+    .nav-item .social-icons li a.facebook:hover {
+        color: var(--facebook-color);
+    }
+    
+    .nav-item .social-icons li a.facebook:hover span {
+        background: var(--facebook-color);
+    }
+    
+    .nav-item .social-icons li a.youtube:hover {
+        color: var(--youtube-color);
+    }
+    
+    .nav-item .social-icons li a.youtube:hover span {
+        background: var(--youtube-color);
+    }
+</style>
 
 
     {% block body %}

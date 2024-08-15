@@ -53,7 +53,7 @@ class PropertyHeaderImageAdmin(admin.ModelAdmin):
     list_display = ('id','image',)
 @admin.register(Property)
 class PropertyAdmin(admin.ModelAdmin):
-    list_display = ('title', 'property_type', 'price', 'location', 'size_sqft', 'bedrooms', 'bathrooms')
+    list_display = ('title','category' ,'property_type', 'location', 'size_sqft', 'bedrooms', 'bathrooms','belcony')
     list_filter = ('property_type',)
     search_fields = ('title', 'location')
     ordering = ('-id',)
