@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import ContactSubmission, ContactImage,PropertyHeaderImage,Property,PropertyAgent_HeaderImage, PropertyAgent_TeamMember, PropertyAgent_CallToAction,AboutUs_HeaderImage, AboutUs_CallToAction, AboutUs_TeamMember,Home_Header, Home_HeaderImage, Home_CallToAction, Home_Testimonial,CareerApplication,Career_HeaderImage
+from .models import ContactSubmission, ContactImage,PropertyHeaderImage,Property,PropertyAgent_HeaderImage, PropertyAgent_TeamMember, PropertyAgent_CallToAction,AboutUs_HeaderImage, AboutUs_CallToAction, AboutUs_TeamMember,Home_Header, Home_HeaderImage, Home_CallToAction, Home_Testimonial,CareerApplication,Career_HeaderImage,PropertyImage
 
 
 
@@ -58,6 +58,12 @@ class PropertyAdmin(admin.ModelAdmin):
     search_fields = ('title', 'location')
     ordering = ('-id',)
 
+    # Adding the PropertyImage as an inline
+    class PropertyImageInline(admin.TabularInline):
+        model = PropertyImage
+        extra = 1  # Number of empty forms to display
+
+    inlines = [PropertyImageInline]
 
 
 

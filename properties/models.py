@@ -94,7 +94,12 @@ class Property(models.Model):
     def __str__(self):
         return self.title
 
+class PropertyImage(models.Model):
+    property = models.ForeignKey(Property, related_name='images', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='property_images/')
 
+    def __str__(self):
+        return f"{self.property.title} Image"
 
 class PropertyAgent_HeaderImage(models.Model):
     image = models.ImageField(upload_to='header_images', null=True, blank=True)

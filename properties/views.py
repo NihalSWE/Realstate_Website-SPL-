@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import ContactSubmission, ContactImage,PropertyHeaderImage,Property,PropertyAgent_HeaderImage, PropertyAgent_TeamMember, PropertyAgent_CallToAction,AboutUs_HeaderImage, AboutUs_CallToAction, AboutUs_TeamMember,Home_Header, Home_HeaderImage, Home_CallToAction, Home_Testimonial,CareerApplication,Career_HeaderImage
+from .models import ContactSubmission, ContactImage,PropertyHeaderImage,Property,PropertyAgent_HeaderImage, PropertyAgent_TeamMember, PropertyAgent_CallToAction,AboutUs_HeaderImage, AboutUs_CallToAction, AboutUs_TeamMember,Home_Header, Home_HeaderImage, Home_CallToAction, Home_Testimonial,CareerApplication,Career_HeaderImage,PropertyImage
 
 
 def home(request):
@@ -324,8 +324,10 @@ def property(request):
 from django.shortcuts import render, get_object_or_404
 def property_detail(request, pk):
     property = get_object_or_404(Property, pk=pk)
+    additional_images = property.images.all()
     context = {
-        'property': property
+        'property': property,
+        'additional_images': additional_images,
     }
     return render(request, 'properties/property_detail.html', context)
 

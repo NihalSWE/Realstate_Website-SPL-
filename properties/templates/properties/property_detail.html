@@ -8,18 +8,218 @@ Property Detail - {{ property.title }}
 <div class="container py-5">
     <div class="row">
         <div class="col-md-6">
-            <img class="img-fluid rounded shadow-sm mb-4" src="{{ property.image.url }}" alt="{{ property.title }}">
+            <!-- Main Image -->
+            <img id="mainImage" class="img-fluid rounded shadow-sm mb-4" src="{{ property.image.url }}" alt="{{ property.title }}">
         </div>
         <div class="col-md-6">
-            <h2 class="mb-4">{{ property.title }}</h2>
-            <p class="mb-3"><strong>Price:</strong> Tk.{{ property.price }}</p>
-            <p class="mb-3"><strong>Location:</strong> {{ property.location }}</p>
-            <p class="mb-3"><strong>Size:</strong> {{ property.size_sqft }} Sqft</p>
-            <p class="mb-3"><strong>Bedrooms:</strong> {{ property.bedrooms }}</p>
-            <p class="mb-3"><strong>Bathrooms:</strong> {{ property.bathrooms }}</p>
-            <p class="mb-4">{{ property.description }}</p>
-            <a href="{% url 'propertyAgent' %}" class="btn btn-primary">Contact Agent</a>
+            <h2 class="mb-4" style="font-weight: 300; text-transform: uppercase; letter-spacing: 1px;">{{ property.title }}</h2>
+        
+            <!-- Property Details Block -->
+            <div class="property-details p-4 mb-4 rounded border">
+                <!-- Location -->
+                <div class="detail-row">
+                    <div class="label"><strong>Location:</strong></div>
+                    <div class="value">{{ property.location }}</div>
+                </div>
+                
+                <!-- Size -->
+                <div class="detail-row">
+                    <div class="label"><strong>Size:</strong></div>
+                    <div class="value">{{ property.size_sqft }} Sqft</div>
+                </div>
+                
+                <!-- Bedrooms -->
+                <div class="detail-row">
+                    <div class="label"><strong>Bedrooms:</strong></div>
+                    <div class="value">{{ property.bedrooms }}</div>
+                </div>
+                
+                <!-- Bathrooms -->
+                <div class="detail-row">
+                    <div class="label"><strong>Bathrooms:</strong></div>
+                    <div class="value">{{ property.bathrooms }}</div>
+                </div>
+                
+                <!-- Balcony -->
+                <div class="detail-row">
+                    <div class="label"><strong>Balcony:</strong></div>
+                    <div class="value">{{ property.belcony }}</div>
+                </div>
+                <!-- Share Button -->
+<div class="mb-3">
+    <p>Share this property:</p>
+    <div class="social-share-buttons">
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" target="_blank" class="btn btn-social btn-facebook">
+            <i class="fa fa-facebook"></i> Facebook
+        </a>
+        <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}&text=Check%20out%20this%20property!" target="_blank" class="btn btn-social btn-twitter">
+            <i class="fa fa-twitter"></i> Twitter
+        </a>
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri }}" target="_blank" class="btn btn-social btn-linkedin">
+            <i class="fa fa-linkedin"></i> LinkedIn
+        </a>
+        <a href="https://www.instagram.com/?url={{ request.build_absolute_uri }}" target="_blank" class="btn btn-social btn-instagram">
+            <i class="fa fa-instagram"></i> Instagram
+        </a>
+    </div>
+</div>
+
+        </div>
+        
+        
+        
+    </div>
+
+    <!-- Additional Images Section -->
+    <div class="additional-images mt-4">
+        <h5>Additional Images</h5>
+        <div class="row">
+            {% for image in additional_images %}
+                <div class="col-4 col-md-2 mb-3">
+                    <img 
+                        class="img-fluid rounded shadow-sm" 
+                        src="{{ image.image.url }}" 
+                        alt="Additional Image"
+                        onclick="document.getElementById('mainImage').src='{{ image.image.url }}'">
+                </div>
+            {% empty %}
+                <p>No additional images available.</p>
+            {% endfor %}
         </div>
     </div>
 </div>
+
+<!-- Add this script block -->
+<script>
+    // This script listens for clicks on the additional images and updates the main image
+    document.querySelectorAll('.additional-images img').forEach(img => {
+        img.addEventListener('click', function() {
+            document.getElementById('mainImage').src = this.src;
+        });
+    });
+</script>
+
+<style>
+    .property-details {
+        background-color: #ffffff; /* White background for a clean look */
+        border: 1px solid #e0e0e0; /* Light border for subtle separation */
+        border-radius: 8px; /* Rounded corners for a modern feel */
+        padding: 20px; /* Adequate padding inside the details block */
+    }
+    
+    .detail-row {
+        display: flex; /* Flexbox for alignment */
+        margin-bottom: 15px; /* Increased space between rows */
+    }
+    
+    .label {
+        color: #333; /* Dark black color for labels */
+        font-weight: 600; /* Slightly bolder for emphasis */
+        width: 150px; /* Fixed width for alignment */
+        flex-shrink: 0; /* Prevent shrinking */
+        text-align: left; /* Align text to the left for labels */
+        padding-right: 10px; /* Space between label and value */
+        font-size: 20px; /* Increased font size for labels */
+    }
+    
+    .value {
+        color: #666; /* Slightly lighter color for values */
+        font-weight: 400; /* Normal font weight for values */
+        font-size: 20px; /* Increased font size for values */
+    }
+    
+    .property-details hr {
+        margin: 20px 0; /* Spacing around the horizontal rule */
+        border: 0; /* Remove default border */
+        border-top: 1px solid #e0e0e0; /* Light border for separation */
+    }
+    
+    .btn-primary {
+        background-color: #007bff; /* Primary color */
+        border-color: #007bff; /* Match border color */
+    }
+       
+    
+
+
+
+    .social-share-buttons {
+        display: flex;
+        flex-wrap: wrap; /* Allows buttons to wrap on smaller screens */
+        gap: 10px; /* Space between buttons */
+        justify-content: center; /* Center align the buttons */
+    }
+    
+    .btn-social {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 16px; /* Reduced padding for better scaling */
+        border-radius: 5px;
+        color: #fff;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+        flex-grow: 1; /* Ensure buttons grow to fill available space */
+        max-width: 100%; /* Ensure buttons don’t overflow */
+        text-align: center; /* Center the text within the button */
+    }
+    
+    .btn-facebook {
+        background-color: #3b5998;
+    }
+    
+    .btn-twitter {
+        background-color: #1da1f2;
+    }
+    
+    .btn-linkedin {
+        background-color: #0077b5;
+    }
+    
+    .btn-instagram {
+        background-color: #E4405F;
+    }
+    
+    .btn-social i {
+        margin-right: 8px;
+        font-size: 16px; /* Ensure icon size scales down for smaller screens */
+    }
+    
+    .btn-facebook:hover {
+        background-color: #2d4373;
+    }
+    
+    .btn-twitter:hover {
+        background-color: #1a91da;
+    }
+    
+    .btn-linkedin:hover {
+        background-color: #005582;
+    }
+    
+    .btn-instagram:hover {
+        background-color: #d6249f;
+    }
+    
+    /* Ensure the Instagram icon is styled correctly */
+    .btn-instagram i {
+        color: #fff;
+    }
+    
+    @media (max-width: 576px) {
+        .btn-social {
+            padding: 6px 12px; /* Further reduce padding on very small screens */
+            font-size: 12px; /* Reduce font size on very small screens */
+        }
+    
+        .btn-social i {
+            margin-right: 5px; /* Reduce space between icon and text */
+            font-size: 14px; /* Reduce icon size */
+        }
+    }
+    
+</style>
+
 {% endblock %}
+
