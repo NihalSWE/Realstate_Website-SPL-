@@ -396,3 +396,5 @@ def contact(request):
             return render(request, 'properties/contact.html', {'error_message': error_message, 'latest_image': latest_image})
 
     return render(request, 'properties/contact.html', {'latest_image': latest_image})
+
+
