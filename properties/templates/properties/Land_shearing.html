@@ -89,6 +89,9 @@ Property List | Land Shearing
                     <li class="nav-item me-2">
                         <a class="btn btn-outline-primary" data-bs-toggle="pill" href="#tab-4">Completed</a>
                     </li>
+                    <li class="nav-item me-2">
+                        <a class="btn btn-outline-primary" data-bs-toggle="pill" href="#tab-5">On Going</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -142,8 +145,9 @@ Property List | Land Shearing
                             <div class="d-flex border-top">
                                 <small class="flex-fill text-center border-end py-2"><i class="fa fa-ruler-combined text-primary me-2"></i>{{ property.size_sqft }} Sqft</small>
                                 <small class="flex-fill text-center border-end py-2"><i class="fa fa-bed text-primary me-2"></i>{{ property.bedrooms }} Bed</small>
-                                <small class="flex-fill text-center py-2"><i class="fa fa-bath text-primary me-2"></i>{{ property.bathrooms }} Bath</small>
-                                <small class="flex-fill text-center py-2"><i class="fa fa-bath text-primary me-2"></i>{{ property.belcony }} Belcony</small>
+                                <small class="flex-fill text-center border-end py-2"><i class="fa fa-bath text-primary me-2"></i>{{ property.bathrooms }} Bath</small>
+                                <small class="flex-fill text-center py-2"><i class="fa fa-balance-scale text-primary me-2"></i>{{ property.balcony }} Balcony</small>
+
                             </div>
                         </div>
                     </div>
@@ -341,6 +345,46 @@ Property List | Land Shearing
                 </div>
                 {% endif %}
             </div>
+
+            <!-- On Going Properties -->
+            <div id="tab-5" class="tab-pane fade show p-0">
+                <div class="row g-4" id="on_going-property-list">
+                    {% for property in ongoing_properties %}
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="property-item rounded overflow-hidden">
+                            <div class="position-relative overflow-hidden">
+                                <a href="{% url 'property_detail' property.id %}">
+                                    <img class="img-fluid" src="{{ property.image.url }}" alt="">
+                                </a>
+                                <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">
+                                    On Going
+                                </div>
+                            </div>
+                            <div class="p-4 pb-0">
+                                <a class="d-block h5 mb-2" href="{% url 'property_detail' property.id %}">{{ property.title }}</a>
+                                <p><i class="fa fa-map-marker-alt text-primary me-2"></i>{{ property.location }}</p>
+                            </div>
+                            <div class="d-flex border-top">
+                                <small class="flex-fill text-center border-end py-2"><i class="fa fa-ruler-combined text-primary me-2"></i>{{ property.size_sqft }} Sqft</small>
+                                <small class="flex-fill text-center border-end py-2"><i class="fa fa-bed text-primary me-2"></i>{{ property.bedrooms }} Bed</small>
+                                <small class="flex-fill text-center py-2"><i class="fa fa-bath text-primary me-2"></i>{{ property.bathrooms }} Bath</small>
+                                <small class="flex-fill text-center py-2"><i class="fa fa-bath text-primary me-2"></i>{{ property.belcony }} Belcony</small>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div id="additional-on_going-properties" class="row g-4" style="display: none; margin-top: 20px;">
+                    {% for property in additional_ongoing_properties %}
+                    <!-- Property Item Template -->
+                    {% endfor %}
+                </div>
+                {% if additional_ongoing_properties %}
+                <div class="col-12 text-center">
+                    <button id="browse-more-on_going-btn" class="btn btn-primary py-3 px-5 mt-4">Browse More Properties</button>
+                </div>
+                {% endif %}
+            </div>
         </div>
     </div>
 </div>
@@ -358,6 +402,8 @@ Property List | Land Shearing
         const additionalUpcomingProperties = document.getElementById('additional-upcoming-properties');
         const browseMoreCompletedBtn = document.getElementById('browse-more-completed-btn');
         const additionalCompletedProperties = document.getElementById('additional-completed-properties');
+        const browseMoreOnGoingBtn = document.getElementById('browse-more-ongoing-btn');
+        const additionalOnGoingProperties = document.getElementById('additional-ongoing-properties');
 
         browseMoreSellBtn.addEventListener('click', () => {
             additionalSellProperties.style.display = 'flex';
@@ -377,6 +423,10 @@ Property List | Land Shearing
         browseMoreCompletedBtn.addEventListener('click', () => {
             additionalCompletedProperties.style.display = 'flex';
             browseMoreCompletedBtn.style.display = 'none';
+        });
+        browseMoreOnGoingBtn.addEventListener('click', () => {
+            additionalOnGoingProperties.style.display = 'block';
+            browseMoreOnGoingBtn.style.display = 'none';
         });
     });
 </script>

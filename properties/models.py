@@ -66,33 +66,65 @@ class PropertyHeaderImage(models.Model):
         return f"HeaderImage {self.id}"
     
 
-CATEGORY_CHOICES=(
-    ('P','Primary Project'),
-    ('S','Secondary Project'),
-    ('L','Land Shearing'),
-    ('J','Joint Venture'),
-)
+from PIL import Image
+from django.core.files import File
+from io import BytesIO
+from django.core.files.base import ContentFile
+
 class Property(models.Model):
-    
+    CATEGORY_CHOICES = (
+        ('P', 'Primary Project'),
+        ('S', 'Secondary Project'),
+        ('L', 'Land Shearing'),
+        ('J', 'Joint Venture'),
+    )
+
     PROPERTY_TYPES = [
         ('sell', 'For Sell'),
         ('sold', 'Sold'),
         ('upcoming', 'Upcoming'),
         ('completed', 'Completed'),
+        ('ongoing', 'OnGoing'),
     ]
-    
+
     title = models.CharField(max_length=100)
     category = models.CharField(choices=CATEGORY_CHOICES, default='J', max_length=2)
     property_type = models.CharField(max_length=10, choices=PROPERTY_TYPES, default='sell')
     location = models.CharField(max_length=255)
-    image = models.ImageField(upload_to='property_images/',default="No Image Set")
+    image = models.ImageField(upload_to='property_images/', default="No Image Set")
     size_sqft = models.IntegerField()
     bedrooms = models.IntegerField()
     bathrooms = models.IntegerField()
     belcony = models.IntegerField(default=0)
+    drawingroom = models.IntegerField(default=0)
+    dyningroom = models.IntegerField(default=0)
+    kitchen = models.IntegerField(default=0)
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)  # Save the object first to generate an image path
+
+        if self.image:
+            img = Image.open(self.image)
+
+            # Define the square size
+            square_size = 600  # Example size, adjust as needed
+
+            # Resize the image to the square size
+            img = img.resize((square_size, square_size), Image.LANCZOS)
+
+            # Save the resized image back to the image field
+            img_io = BytesIO()
+            img.save(img_io, format='JPEG', quality=90)
+            img_content = ContentFile(img_io.getvalue(), self.image.name)
+            self.image.save(self.image.name, img_content, save=False)
+
+        super().save(*args, **kwargs)  # Save the object again with the resized image
+
+
+
 
 class PropertyImage(models.Model):
     property = models.ForeignKey(Property, related_name='images', on_delete=models.CASCADE)

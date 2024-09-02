@@ -166,7 +166,7 @@ Home
         <div class="row g-0 gx-5 align-items-end">
             <div class="col-lg-6">
                 <div class="text-start mx-auto mb-5 wow slideInLeft" data-wow-delay="0.1s">
-                    <h1 class="mb-3">Property Listing</h1>
+                    <h1 class="mb3">Property Listing</h1>
                     <p>Eirmod sed ipsum dolor sit rebum labore magna erat. Tempor ut dolore lorem kasd vero ipsum sit eirmod sit diam justo sed rebum.</p>
                 </div>
             </div>
@@ -178,10 +178,20 @@ Home
                     <li class="nav-item me-2">
                         <a class="btn btn-outline-primary" data-bs-toggle="pill" href="#tab-2">Sold</a>
                     </li>
+                    <li class="nav-item me-2">
+                        <a class="btn btn-outline-primary" data-bs-toggle="pill" href="#tab-3">Upcoming</a>
+                    </li>
+                    <li class="nav-item me-2">
+                        <a class="btn btn-outline-primary" data-bs-toggle="pill" href="#tab-4">Completed</a>
+                    </li>
+                    <li class="nav-item me-2">
+                        <a class="btn btn-outline-primary" data-bs-toggle="pill" href="#tab-5">On Going</a>
+                    </li>
                 </ul>
             </div>
         </div>
         <div class="tab-content">
+            <!-- For Sell Properties -->
             <div id="tab-1" class="tab-pane fade show p-0 active">
                 <div class="row g-4" id="property-list">
                     {% for property in for_sell_properties %}
@@ -191,7 +201,7 @@ Home
                                 <a href="{% url 'property_detail' property.id %}">
                                     <img class="img-fluid" src="{{ property.image.url }}" alt="">
                                 </a>
-                                <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">
+                                <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3" hidden>
                                     For Sell
                                 </div>
                             </div>
@@ -204,13 +214,12 @@ Home
                                 <small class="flex-fill text-center border-end py-2"><i class="fa fa-ruler-combined text-primary me-2"></i>{{ property.size_sqft }} Sqft</small>
                                 <small class="flex-fill text-center border-end py-2"><i class="fa fa-bed text-primary me-2"></i>{{ property.bedrooms }} Bed</small>
                                 <small class="flex-fill text-center py-2"><i class="fa fa-bath text-primary me-2"></i>{{ property.bathrooms }} Bath</small>
-                                <small class="flex-fill text-center py-2"><i class="fa fa-bath text-primary me-2"></i>{{ property.belcony }} Belcony</small>
                             </div>
                         </div>
                     </div>
                     {% endfor %}
                 </div>
-                <div id="additional-properties" class="row g-4" style="display: none; margin-top: 20px;">
+                <div id="additional-sell-properties" class="row g-4" style="display: none; margin-top: 20px;">
                     {% for property in additional_sell_properties %}
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="property-item rounded overflow-hidden">
@@ -218,7 +227,7 @@ Home
                                 <a href="{% url 'property_detail' property.id %}">
                                     <img class="img-fluid" src="{{ property.image.url }}" alt="">
                                 </a>
-                                <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">
+                                <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3" hidden>
                                     For Sell
                                 </div>
                             </div>
@@ -239,12 +248,13 @@ Home
                 </div>
                 {% if additional_sell_properties %}
                 <div class="col-12 text-center">
-                    <button id="browse-more-btn" class="btn btn-primary py-3 px-5 mt-4">Browse More Properties</button>
+                    <button id="browse-more-sell-btn" class="btn btn-primary py-3 px-5 mt-4">Browse More Properties</button>
                 </div>
                 {% endif %}
             </div>
+            <!-- Sold Properties -->
             <div id="tab-2" class="tab-pane fade show p-0">
-                <div class="row g-4">
+                <div class="row g-4" id="sold-property-list">
                     {% for property in sold_properties %}
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="property-item rounded overflow-hidden">
@@ -252,7 +262,7 @@ Home
                                 <a href="{% url 'property_detail' property.id %}">
                                     <img class="img-fluid" src="{{ property.image.url }}" alt="">
                                 </a>
-                                <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">
+                                <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3"hidden>
                                     Sold
                                 </div>
                             </div>
@@ -271,11 +281,206 @@ Home
                     </div>
                     {% endfor %}
                 </div>
+                <div id="additional-sold-properties" class="row g-4" style="display: none; margin-top: 20px;">
+                    {% for property in additional_sold_properties %}
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="property-item rounded overflow-hidden">
+                            <div class="position-relative overflow-hidden">
+                                <a href="{% url 'property_detail' property.id %}">
+                                    <img class="img-fluid" src="{{ property.image.url }}" alt="">
+                                </a>
+                                <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3"hidden>
+                                    Sold
+                                </div>
+                            </div>
+                            <div class="p-4 pb-0">
+                                
+                                <a class="d-block h5 mb-2" href="{% url 'property_detail' property.id %}">{{ property.title }}</a>
+                                <p><i class="fa fa-map-marker-alt text-primary me-2"></i>{{ property.location }}</p>
+                            </div>
+                            <div class="d-flex border-top">
+                                <small class="flex-fill text-center border-end py-2"><i class="fa fa-ruler-combined text-primary me-2"></i>{{ property.size_sqft }} Sqft</small>
+                                <small class="flex-fill text-center border-end py-2"><i class="fa fa-bed text-primary me-2"></i>{{ property.bedrooms }} Bed</small>
+                                <small class="flex-fill text-center py-2"><i class="fa fa-bath text-primary me-2"></i>{{ property.bathrooms }} Bath</small>
+                                <small class="flex-fill text-center py-2"><i class="fa fa-bath text-primary me-2"></i>{{ property.belcony }} Belcony</small>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% if additional_sold_properties %}
+                <div class="col-12 text-center">
+                    <button id="browse-more-sold-btn" class="btn btn-primary py-3 px-5 mt-4">Browse More Properties</button>
+                </div>
+                {% endif %}
+            </div>
+            <!-- Upcoming Properties -->
+            <div id="tab-3" class="tab-pane fade show p-0">
+                <div class="row g-4" id="upcoming-property-list">
+                    {% for property in upcoming_properties %}
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="property-item rounded overflow-hidden">
+                            <div class="position-relative overflow-hidden">
+                                <a href="{% url 'property_detail' property.id %}">
+                                    <img class="img-fluid" src="{{ property.image.url }}" alt="">
+                                </a>
+                                <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3"hidden>
+                                    Upcoming
+                                </div>
+                            </div>
+                            <div class="p-4 pb-0">
+                                
+                                <a class="d-block h5 mb-2" href="{% url 'property_detail' property.id %}">{{ property.title }}</a>
+                                <p><i class="fa fa-map-marker-alt text-primary me-2"></i>{{ property.location }}</p>
+                            </div>
+                            <div class="d-flex border-top">
+                                <small class="flex-fill text-center border-end py-2"><i class="fa fa-ruler-combined text-primary me-2"></i>{{ property.size_sqft }} Sqft</small>
+                                <small class="flex-fill text-center border-end py-2"><i class="fa fa-bed text-primary me-2"></i>{{ property.bedrooms }} Bed</small>
+                                <small class="flex-fill text-center py-2"><i class="fa fa-bath text-primary me-2"></i>{{ property.bathrooms }} Bath</small>
+                                <small class="flex-fill text-center py-2"><i class="fa fa-bath text-primary me-2"></i>{{ property.belcony }} Belcony</small>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div id="additional-upcoming-properties" class="row g-4" style="display: none; margin-top: 20px;">
+                    {% for property in additional_upcoming_properties %}
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="property-item rounded overflow-hidden">
+                            <div class="position-relative overflow-hidden">
+                                <a href="{% url 'property_detail' property.id %}">
+                                    <img class="img-fluid" src="{{ property.image.url }}" alt="">
+                                </a>
+                                <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3"hidden>
+                                    Upcoming
+                                </div>
+                            </div>
+                            <div class="p-4 pb-0">
+                                
+                                <a class="d-block h5 mb-2" href="{% url 'property_detail' property.id %}">{{ property.title }}</a>
+                                <p><i class="fa fa-map-marker-alt text-primary me-2"></i>{{ property.location }}</p>
+                            </div>
+                            <div class="d-flex border-top">
+                                <small class="flex-fill text-center border-end py-2"><i class="fa fa-ruler-combined text-primary me-2"></i>{{ property.size_sqft }} Sqft</small>
+                                <small class="flex-fill text-center border-end py-2"><i class="fa fa-bed text-primary me-2"></i>{{ property.bedrooms }} Bed</small>
+                                <small class="flex-fill text-center py-2"><i class="fa fa-bath text-primary me-2"></i>{{ property.bathrooms }} Bath</small>
+                                <small class="flex-fill text-center py-2"><i class="fa fa-bath text-primary me-2"></i>{{ property.belcony }} Belcony</small>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% if additional_upcoming_properties %}
+                <div class="col-12 text-center">
+                    <button id="browse-more-upcoming-btn" class="btn btn-primary py-3 px-5 mt-4">Browse More Properties</button>
+                </div>
+                {% endif %}
+            </div>
+            <!-- Completed Properties -->
+            <div id="tab-4" class="tab-pane fade show p-0">
+                <div class="row g-4" id="completed-property-list">
+                    {% for property in completed_properties %}
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="property-item rounded overflow-hidden">
+                            <div class="position-relative overflow-hidden">
+                                <a href="{% url 'property_detail' property.id %}">
+                                    <img class="img-fluid" src="{{ property.image.url }}" alt="">
+                                </a>
+                                <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3"hidden>
+                                    Completed
+                                </div>
+                            </div>
+                            <div class="p-4 pb-0">
+                                
+                                <a class="d-block h5 mb-2" href="{% url 'property_detail' property.id %}">{{ property.title }}</a>
+                                <p><i class="fa fa-map-marker-alt text-primary me-2"></i>{{ property.location }}</p>
+                            </div>
+                            <div class="d-flex border-top">
+                                <small class="flex-fill text-center border-end py-2"><i class="fa fa-ruler-combined text-primary me-2"></i>{{ property.size_sqft }} Sqft</small>
+                                <small class="flex-fill text-center border-end py-2"><i class="fa fa-bed text-primary me-2"></i>{{ property.bedrooms }} Bed</small>
+                                <small class="flex-fill text-center py-2"><i class="fa fa-bath text-primary me-2"></i>{{ property.bathrooms }} Bath</small>
+                                <small class="flex-fill text-center py-2"><i class="fa fa-bath text-primary me-2"></i>{{ property.belcony }} Belcony</small>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div id="additional-completed-properties" class="row g-4" style="display: none; margin-top: 20px;">
+                    {% for property in additional_completed_properties %}
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="property-item rounded overflow-hidden">
+                            <div class="position-relative overflow-hidden">
+                                <a href="{% url 'property_detail' property.id %}">
+                                    <img class="img-fluid" src="{{ property.image.url }}" alt="">
+                                </a>
+                                <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3"hidden>
+                                    Completed
+                                </div>
+                            </div>
+                            <div class="p-4 pb-0">
+                                
+                                <a class="d-block h5 mb-2" href="{% url 'property_detail' property.id %}">{{ property.title }}</a>
+                                <p><i class="fa fa-map-marker-alt text-primary me-2"></i>{{ property.location }}</p>
+                            </div>
+                            <div class="d-flex border-top">
+                                <small class="flex-fill text-center border-end py-2"><i class="fa fa-ruler-combined text-primary me-2"></i>{{ property.size_sqft }} Sqft</small>
+                                <small class="flex-fill text-center border-end py-2"><i class="fa fa-bed text-primary me-2"></i>{{ property.bedrooms }} Bed</small>
+                                <small class="flex-fill text-center py-2"><i class="fa fa-bath text-primary me-2"></i>{{ property.bathrooms }} Bath</small>
+                                <small class="flex-fill text-center py-2"><i class="fa fa-bath text-primary me-2"></i>{{ property.belcony }} Belcony</small>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% if additional_completed_properties %}
+                <div class="col-12 text-center">
+                    <button id="browse-more-completed-btn" class="btn btn-primary py-3 px-5 mt-4">Browse More Properties</button>
+                </div>
+                {% endif %}
+            </div>
+            <!-- On Going Properties -->
+            <div id="tab-5" class="tab-pane fade show p-0">
+                <div class="row g-4" id="on_going-property-list">
+                    {% for property in ongoing_properties %}
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="property-item rounded overflow-hidden">
+                            <div class="position-relative overflow-hidden">
+                                <a href="{% url 'property_detail' property.id %}">
+                                    <img class="img-fluid" src="{{ property.image.url }}" alt="">
+                                </a>
+                                <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3"hidden>
+                                    On Going
+                                </div>
+                            </div>
+                            <div class="p-4 pb-0">
+                                <a class="d-block h5 mb-2" href="{% url 'property_detail' property.id %}">{{ property.title }}</a>
+                                <p><i class="fa fa-map-marker-alt text-primary me-2"></i>{{ property.location }}</p>
+                            </div>
+                            <div class="d-flex border-top">
+                                <small class="flex-fill text-center border-end py-2"><i class="fa fa-ruler-combined text-primary me-2"></i>{{ property.size_sqft }} Sqft</small>
+                                <small class="flex-fill text-center border-end py-2"><i class="fa fa-bed text-primary me-2"></i>{{ property.bedrooms }} Bed</small>
+                                <small class="flex-fill text-center py-2"><i class="fa fa-bath text-primary me-2"></i>{{ property.bathrooms }} Bath</small>
+                                <small class="flex-fill text-center py-2"><i class="fa fa-bath text-primary me-2"></i>{{ property.belcony }} Belcony</small>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div id="additional-on_going-properties" class="row g-4" style="display: none; margin-top: 20px;">
+                    {% for property in additional_ongoing_properties %}
+                    <!-- Property Item Template -->
+                    {% endfor %}
+                </div>
+                {% if additional_ongoing_properties %}
+                <div class="col-12 text-center">
+                    <button id="browse-more-on_going-btn" class="btn btn-primary py-3 px-5 mt-4">Browse More Properties</button>
+                </div>
+                {% endif %}
             </div>
         </div>
     </div>
 </div>
-<!-- Property List End --> 
+<!-- Property List End -->
 
 
 {% comment %} <!-- Property List Start -->

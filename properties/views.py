@@ -13,6 +13,13 @@ def home(request):
     for_sell_properties = properties.filter(property_type='sell')[:6]
     additional_sell_properties = properties.filter(property_type='sell')[6:]
     sold_properties = properties.filter(property_type='sold')[:6]
+    additional_sold_properties = properties.filter(property_type='sold')[6:]
+    upcoming_properties = properties.filter(property_type='upcoming')[:6]
+    additional_upcoming_properties = properties.filter(property_type='upcoming')[6:]
+    completed_properties = properties.filter(property_type='completed')[:6]
+    additional_completed_properties = properties.filter(property_type='completed')[6:]
+    ongoing_properties = properties.filter(property_type='ongoing')[:6]
+    additional_ongoing_properties = properties.filter(property_type='ongoing')[6:]
 
     # Get all unique locations
     unique_location_dicts = Property.objects.values('location').distinct()
@@ -44,6 +51,13 @@ def home(request):
     for_sell_properties = properties.filter(property_type='sell')[:6]
     additional_sell_properties = properties.filter(property_type='sell')[6:]
     sold_properties = properties.filter(property_type='sold')[:6]
+    additional_sold_properties = properties.filter(property_type='sold')[6:]
+    upcoming_properties = properties.filter(property_type='upcoming')[:6]
+    additional_upcoming_properties = properties.filter(property_type='upcoming')[6:]
+    completed_properties = properties.filter(property_type='completed')[:6]
+    additional_completed_properties = properties.filter(property_type='completed')[6:]
+    ongoing_properties = properties.filter(property_type='ongoing')[:6]
+    additional_ongoing_properties = properties.filter(property_type='ongoing')[6:]
 
     context = {
         'header': header,
@@ -51,6 +65,13 @@ def home(request):
         'for_sell_properties': for_sell_properties,
         'additional_sell_properties': additional_sell_properties,
         'sold_properties': sold_properties,
+        'additional_sold_properties': additional_sold_properties,
+        'upcoming_properties': upcoming_properties,
+        'additional_upcoming_properties': additional_upcoming_properties,
+        'completed_properties': completed_properties,
+        'additional_completed_properties': additional_completed_properties,
+        'ongoing_properties': ongoing_properties,
+        'additional_ongoing_properties': additional_ongoing_properties,
         'call_to_action': call_to_action,
         'testimonials': testimonials,
         'unique_locations': unique_locations,
@@ -58,6 +79,7 @@ def home(request):
         'search_title': title,
         'search_property_type': property_type,
         'search_location': location,
+        
     }
     return render(request, 'properties/home.html', context)
 
@@ -182,18 +204,26 @@ def about(request):
     return render(request, 'properties/about.html',context)
 
 def primary_p(request):
-    header_image = PropertyHeaderImage.objects.first()  # Assuming you have only one header image
-    p_properties=Property.objects.filter(category='P').order_by('id')
+    header_image = PropertyHeaderImage.objects.first()
+    p_properties = Property.objects.filter(category='P').order_by('id')
+    
+    # Filtering properties based on their type
     for_sell_properties = p_properties.filter(property_type='sell')[:6]
     additional_sell_properties = p_properties.filter(property_type='sell')[6:]
+    
     sold_properties = p_properties.filter(property_type='sold')[:6]
     additional_sold_properties = p_properties.filter(property_type='sold')[6:]
+    
     upcoming_properties = p_properties.filter(property_type='upcoming')[:6]
     additional_upcoming_properties = p_properties.filter(property_type='upcoming')[6:]
+    
     completed_properties = p_properties.filter(property_type='completed')[:6]
     additional_completed_properties = p_properties.filter(property_type='completed')[6:]
+    
+    ongoing_properties = p_properties.filter(property_type='ongoing')[:6]
+    additional_ongoing_properties = p_properties.filter(property_type='ongoing')[6:]
+    
     context = {
-        'p_properties': p_properties,
         'header_image': header_image,
         'for_sell_properties': for_sell_properties,
         'additional_sell_properties': additional_sell_properties,
@@ -203,25 +233,37 @@ def primary_p(request):
         'additional_upcoming_properties': additional_upcoming_properties,
         'completed_properties': completed_properties,
         'additional_completed_properties': additional_completed_properties,
-        }
-    return render(request, 'properties/Primary_project.html',context)
+        'ongoing_properties': ongoing_properties,
+        'additional_ongoing_properties': additional_ongoing_properties,
+    }
+    
+    return render(request, 'properties/Primary_project.html', context)
+
+
 
 
 
 
 def secondary_p(request):
-    header_image = PropertyHeaderImage.objects.first()  # Assuming you have only one header image
-    s_properties=Property.objects.filter(category='S').order_by('id')
+    header_image = PropertyHeaderImage.objects.first()
+    s_properties = Property.objects.filter(category='S').order_by('id')
+    
     for_sell_properties = s_properties.filter(property_type='sell')[:6]
     additional_sell_properties = s_properties.filter(property_type='sell')[6:]
+    
     sold_properties = s_properties.filter(property_type='sold')[:6]
     additional_sold_properties = s_properties.filter(property_type='sold')[6:]
+    
     upcoming_properties = s_properties.filter(property_type='upcoming')[:6]
     additional_upcoming_properties = s_properties.filter(property_type='upcoming')[6:]
+    
     completed_properties = s_properties.filter(property_type='completed')[:6]
     additional_completed_properties = s_properties.filter(property_type='completed')[6:]
+    
+    ongoing_properties = s_properties.filter(property_type='ongoing')[:6]
+    additional_ongoing_properties = s_properties.filter(property_type='ongoing')[6:]
+    
     context = {
-        's_properties': s_properties,
         'header_image': header_image,
         'for_sell_properties': for_sell_properties,
         'additional_sell_properties': additional_sell_properties,
@@ -231,23 +273,34 @@ def secondary_p(request):
         'additional_upcoming_properties': additional_upcoming_properties,
         'completed_properties': completed_properties,
         'additional_completed_properties': additional_completed_properties,
-        }
-    return render(request, 'properties/Secondary_project.html',context)
+        'ongoing_properties': ongoing_properties,
+        'additional_ongoing_properties': additional_ongoing_properties,
+    }
+    
+    return render(request, 'properties/Secondary_project.html', context)
+
 
 
 def land_p(request):
-    header_image = PropertyHeaderImage.objects.first()  # Assuming you have only one header image
-    l_properties=Property.objects.filter(category='L').order_by('id')
+    header_image = PropertyHeaderImage.objects.first()
+    l_properties = Property.objects.filter(category='L').order_by('id')
+    
     for_sell_properties = l_properties.filter(property_type='sell')[:6]
     additional_sell_properties = l_properties.filter(property_type='sell')[6:]
+    
     sold_properties = l_properties.filter(property_type='sold')[:6]
     additional_sold_properties = l_properties.filter(property_type='sold')[6:]
+    
     upcoming_properties = l_properties.filter(property_type='upcoming')[:6]
     additional_upcoming_properties = l_properties.filter(property_type='upcoming')[6:]
+    
     completed_properties = l_properties.filter(property_type='completed')[:6]
     additional_completed_properties = l_properties.filter(property_type='completed')[6:]
+    
+    ongoing_properties = l_properties.filter(property_type='ongoing')[:6]
+    additional_ongoing_properties = l_properties.filter(property_type='ongoing')[6:]
+    
     context = {
-        'l_properties': l_properties,
         'header_image': header_image,
         'for_sell_properties': for_sell_properties,
         'additional_sell_properties': additional_sell_properties,
@@ -257,23 +310,33 @@ def land_p(request):
         'additional_upcoming_properties': additional_upcoming_properties,
         'completed_properties': completed_properties,
         'additional_completed_properties': additional_completed_properties,
-        }
-    return render(request, 'properties/Land_shearing.html',context)
+        'ongoing_properties': ongoing_properties,
+        'additional_ongoing_properties': additional_ongoing_properties,
+    }
+    
+    return render(request, 'properties/Land_shearing.html', context)
 
 
 def join_p(request):
-    header_image = PropertyHeaderImage.objects.first()  # Assuming you have only one header image
-    j_properties=Property.objects.filter(category='J').order_by('id')
+    header_image = PropertyHeaderImage.objects.first()
+    j_properties = Property.objects.filter(category='J').order_by('id')
+    
     for_sell_properties = j_properties.filter(property_type='sell')[:6]
     additional_sell_properties = j_properties.filter(property_type='sell')[6:]
+    
     sold_properties = j_properties.filter(property_type='sold')[:6]
     additional_sold_properties = j_properties.filter(property_type='sold')[6:]
+    
     upcoming_properties = j_properties.filter(property_type='upcoming')[:6]
     additional_upcoming_properties = j_properties.filter(property_type='upcoming')[6:]
+    
     completed_properties = j_properties.filter(property_type='completed')[:6]
     additional_completed_properties = j_properties.filter(property_type='completed')[6:]
+    
+    ongoing_properties = j_properties.filter(property_type='ongoing')[:6]
+    additional_ongoing_properties = j_properties.filter(property_type='ongoing')[6:]
+    
     context = {
-        'j_properties': j_properties,
         'header_image': header_image,
         'for_sell_properties': for_sell_properties,
         'additional_sell_properties': additional_sell_properties,
@@ -283,8 +346,12 @@ def join_p(request):
         'additional_upcoming_properties': additional_upcoming_properties,
         'completed_properties': completed_properties,
         'additional_completed_properties': additional_completed_properties,
-        }
-    return render(request, 'properties/join_venture.html',context)
+        'ongoing_properties': ongoing_properties,
+        'additional_ongoing_properties': additional_ongoing_properties,
+    }
+    
+    return render(request, 'properties/Join_venture.html', context)
+
 
 
 
@@ -304,6 +371,8 @@ def property(request):
     additional_upcoming_properties = properties.filter(property_type='upcoming')[6:]
     completed_properties = properties.filter(property_type='completed')[:6]
     additional_completed_properties = properties.filter(property_type='completed')[6:]
+    ongoing_properties = properties.filter(property_type='ongoing')[:6]
+    additional_ongoing_properties = properties.filter(property_type='ongoing')[6:]
     
     context = {
         'properties': properties,
@@ -316,6 +385,8 @@ def property(request):
         'additional_upcoming_properties': additional_upcoming_properties,
         'completed_properties': completed_properties,
         'additional_completed_properties': additional_completed_properties,
+        'ongoing_properties': ongoing_properties,
+        'additional_ongoing_properties': additional_ongoing_properties,
     }
     return render(request, 'properties/property-list.html', context)
 
