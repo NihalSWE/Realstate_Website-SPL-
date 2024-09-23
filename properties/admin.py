@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import ContactSubmission, ContactImage,PropertyHeaderImage,Property,PropertyAgent_HeaderImage, PropertyAgent_TeamMember, PropertyAgent_CallToAction,AboutUs_HeaderImage, AboutUs_CallToAction, AboutUs_TeamMember,Home_Header, Home_HeaderImage, Home_CallToAction, Home_Testimonial,CareerApplication,Career_HeaderImage,PropertyImage
+from .models import ContactSubmission, ContactImage,PropertyHeaderImage,Property,PropertyAgent_HeaderImage, PropertyAgent_TeamMember, PropertyAgent_CallToAction,AboutUs_HeaderImage, AboutUs_CallToAction, AboutUs_TeamMember,Home_Header, Home_HeaderImage, Home_CallToAction, Home_Testimonial,CareerApplication,Career_HeaderImage,PropertyImage,Career_Department
 
 
 
@@ -102,7 +102,17 @@ class Career_HeaderImageAdmin(admin.ModelAdmin):
     list_display = ('id', 'image')
     search_fields = ('id',)
 
+
+@admin.register(Career_Department)
+class Career_DepartmentAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+    search_fields = ('name',)
 @admin.register(CareerApplication)
 class CareerApplicationAdmin(admin.ModelAdmin):
-    list_display = ('name', 'email', 'number', 'address', 'message','cv','submitted_at',)
-    search_fields = ('name', 'number', 'address',)
+    list_display = ('name', 'email', 'number', 'address', 'message','department','cv','submitted_at',)
+    search_fields = ('name', 'number', 'address','department',)
+
+    def download_cv(self, obj):
+        return f'<a href="{obj.cv.url}" download>Download CV</a>'
+    download_cv.allow_tags = True
+    download_cv.short_description = 'CV'

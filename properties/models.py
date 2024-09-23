@@ -189,6 +189,12 @@ class AboutUs_TeamMember(models.Model):
 
 
 
+class Career_Department(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
 class CareerApplication(models.Model):
     name = models.CharField(max_length=255)
     email = models.EmailField(max_length=50)
@@ -196,6 +202,7 @@ class CareerApplication(models.Model):
     address = models.CharField(max_length=255)
     message = models.TextField()
     cv = models.FileField(upload_to='cvs/')
+    department = models.ForeignKey(Career_Department, on_delete=models.SET_NULL, null=True, blank=True)
     submitted_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):

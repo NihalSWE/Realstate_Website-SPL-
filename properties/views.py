@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import ContactSubmission, ContactImage,PropertyHeaderImage,Property,PropertyAgent_HeaderImage, PropertyAgent_TeamMember, PropertyAgent_CallToAction,AboutUs_HeaderImage, AboutUs_CallToAction, AboutUs_TeamMember,Home_Header, Home_HeaderImage, Home_CallToAction, Home_Testimonial,CareerApplication,Career_HeaderImage,PropertyImage
+from .models import ContactSubmission, ContactImage,PropertyHeaderImage,Property,PropertyAgent_HeaderImage, PropertyAgent_TeamMember, PropertyAgent_CallToAction,AboutUs_HeaderImage, AboutUs_CallToAction, AboutUs_TeamMember,Home_Header, Home_HeaderImage, Home_CallToAction, Home_Testimonial,CareerApplication,Career_HeaderImage,PropertyImage,Career_Department
 
 
 def home(request):
@@ -82,7 +82,8 @@ def home(request):
         
     }
     return render(request, 'properties/home.html', context)
-
+def error_page(request, exception):
+    return render(request, 'properties/404.html')
 # def home(request):
 #     header = Home_Header.objects.first()
 #     header_images = Home_HeaderImage.objects.all()
@@ -153,9 +154,11 @@ def home(request):
 
 def career(request):
     header_image = Career_HeaderImage.objects.first()  # Retrieve header image
+    departments = Career_Department.objects.all()  # Retrieve all departments
 
     context = {
         'header_image': header_image,
+        'departments': departments,  # Pass departments to the template
     }
 
     if request.method == 'POST':
@@ -165,8 +168,11 @@ def career(request):
         address = request.POST.get('address')
         message = request.POST.get('message')
         cv = request.FILES.get('cv')
+        department_id = request.POST.get('department')
 
-        if name and email and number and address and message and cv:
+        if name and email and number and address and message and cv and department_id:
+            department = Career_Department.objects.get(id=department_id)
+            
             # Save the career application
             application = CareerApplication(
                 name=name,
@@ -174,7 +180,8 @@ def career(request):
                 number=number,
                 address=address,
                 message=message,
-                cv=cv
+                cv=cv,
+                department=department
             )
             application.save()
 
