@@ -9,6 +9,7 @@ def home(request):
     properties = Property.objects.all()
     call_to_action = Home_CallToAction.objects.first()
     testimonials = Home_Testimonial.objects.all()
+    portfolio = Portfolio.objects.last()  # Get the latest portfolio uploaded
 
     for_sell_properties = properties.filter(property_type='sell')[:6]
     additional_sell_properties = properties.filter(property_type='sell')[6:]
@@ -79,6 +80,7 @@ def home(request):
         'search_title': title,
         'search_property_type': property_type,
         'search_location': location,
+        'portfolio': portfolio,
         
     }
     return render(request, 'properties/home.html', context)
