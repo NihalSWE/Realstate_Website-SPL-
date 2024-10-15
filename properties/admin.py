@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import ContactSubmission, ContactImage,PropertyHeaderImage,Property,PropertyAgent_HeaderImage, PropertyAgent_TeamMember, PropertyAgent_CallToAction,AboutUs_HeaderImage, AboutUs_CallToAction, AboutUs_TeamMember,Home_Header, Home_HeaderImage, Home_CallToAction, Home_Testimonial,CareerApplication,Career_HeaderImage,PropertyImage,Career_Department
+from .models import ContactSubmission, ContactImage,PropertyHeaderImage,Property,PropertyAgent_HeaderImage, PropertyAgent_TeamMember, PropertyAgent_CallToAction,AboutUs_HeaderImage, AboutUs_CallToAction, AboutUs_TeamMember,Home_Header, Home_HeaderImage, Home_CallToAction, Home_Testimonial,CareerApplication,Career_HeaderImage,PropertyImage,Career_Department,Portfolio
 
 
 
@@ -116,3 +116,9 @@ class CareerApplicationAdmin(admin.ModelAdmin):
         return f'<a href="{obj.cv.url}" download>Download CV</a>'
     download_cv.allow_tags = True
     download_cv.short_description = 'CV'
+
+
+
+@admin.register(Portfolio)
+class PortfolioAdmin(admin.ModelAdmin):
+    list_display = ['id','file','uploaded_at']

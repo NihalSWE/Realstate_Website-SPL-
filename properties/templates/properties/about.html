@@ -40,8 +40,18 @@ About
                             <h1 class="mb-3">{{ cta.title }}</h1>
                             <p>{{ cta.description }}</p>
                         </div>
-                        <a href="tel:+8801711251505" class="btn btn-primary py-3 px-4 me-2"><i class="fa fa-phone-alt me-2"></i>Make A Call</a>
-                        <a href="https://maps.app.goo.gl/yp96Fv7FaGauhRNE9" class="btn btn-dark py-3 px-4" target="_blank"><i class="fa fa-location"></i>Office Location</a>
+                        {% if portfolio %}
+                            <a href="{{ portfolio.file.url }}" target="_blank" class="btn btn-primary py-3 px-4 me-2">
+                                <i class="fa fa-download me-2"></i>Download Our Profile
+                            </a>
+                        {% else %}
+                            <a href="#" class="btn btn-primary py-3 px-4 me-2 disabled">
+                                <i class="fa fa-download me-2"></i>Download Our Profile
+                            </a>
+                        {% endif %}
+                        <a href="https://maps.app.goo.gl/yp96Fv7FaGauhRNE9" class="btn btn-dark py-3 px-4" target="_blank">
+                            <i class="fa fa-location"></i>Office Location
+                        </a>
                     </div>
                 </div>
             </div>
@@ -49,6 +59,8 @@ About
     </div>
 </div>
 <!-- Call to Action End -->
+
+
 
 <!-- Team Start -->
 <div class="container-xxl py-5">

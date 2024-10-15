@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import ContactSubmission, ContactImage,PropertyHeaderImage,Property,PropertyAgent_HeaderImage, PropertyAgent_TeamMember, PropertyAgent_CallToAction,AboutUs_HeaderImage, AboutUs_CallToAction, AboutUs_TeamMember,Home_Header, Home_HeaderImage, Home_CallToAction, Home_Testimonial,CareerApplication,Career_HeaderImage,PropertyImage,Career_Department
+from .models import ContactSubmission, ContactImage,PropertyHeaderImage,Property,PropertyAgent_HeaderImage, PropertyAgent_TeamMember, PropertyAgent_CallToAction,AboutUs_HeaderImage, AboutUs_CallToAction, AboutUs_TeamMember,Home_Header, Home_HeaderImage, Home_CallToAction, Home_Testimonial,CareerApplication,Career_HeaderImage,PropertyImage,Career_Department,Portfolio
 
 
 def home(request):
@@ -202,13 +202,16 @@ def about(request):
     header_image = AboutUs_HeaderImage.objects.first()
     cta = AboutUs_CallToAction.objects.first()
     team_members = AboutUs_TeamMember.objects.all()
+    portfolio = Portfolio.objects.last()  # Getting the latest portfolio
 
     context = {
         'header_image': header_image,
         'cta': cta,
         'team_members': team_members,
+        'portfolio': portfolio,
     }
-    return render(request, 'properties/about.html',context)
+    return render(request, 'properties/about.html', context)
+
 
 def primary_p(request):
     header_image = PropertyHeaderImage.objects.first()
